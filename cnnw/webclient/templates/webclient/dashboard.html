@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CNNW - Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/9542326f7c.js"></script>
+    <script src="{% static "script.js" %}"></script>
+    <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  </head>
+  <body> 
+    <div class="container-fluid">
+      <div class="col-md-1 coluna">
+        <div class="row">
+           <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
+        </div>
+        <div class="row">
+          <a href="../search/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Busca por empresas e pessoas">
+            <i class="fa fa-search fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+         <a id="menu" class="btn btn-primary disabled">
+            <i class="fa fa-dashboard fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+          <a href="../config/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Configure palavras-chave para busca">
+            <i class="fa fa-gear fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 coluna">
+        <div class="input-group input-group-lg" id="pesquisarentidade">
+          <input type="text" class="form-control" placeholder="Digite a empresa ou pessoa a ser buscada ...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Pesquisar!</button>
+          </span>
+        </div>
+
+        <h3>Pezão 22/06/2017 17:11:42</h3>
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <a href="http://g1.globo.com/rio-de-janeiro/noticia/pezao-afirmou-em-reuniao-que-talvez-nao-chegue-ao-fim-do-mandato-diz-lider-de-movimento-de-servidores.ghtml">Pezão afirmou em reunião que não sabe se chega ao fim do mandato, diz líder de movimento de servidores - G1</a><br>
+            <a href="http://g1.globo.com.br" class="text-success">g1.globo.com.br</a>
+            <h6>O presidente do Movumento Unificado dos Servidores Públicos do Rio (Muspe), Ramon Carrera, afirmou, ao sair de reunião com Luiz Fernando Pezão na tarde desta quinta-feira (22), que o governador disse "repetidas vezes" durante o encontro que não sabe se chegará ao fim do mandato, em 2018. A afirmação acontece no dia em que o presidente da Alerj, Jorge Picciani (PMDB), disse que em entrevista à rádio CBN, na manhã desta quinta-feira (22), que a solução para o estado é uma intervenção do governo fe ... </h6>
+          </li>
+
+          <li class="list-group-item">
+            <a href="https://oglobo.globo.com/rio/pezao-diz-servidores-que-permanencia-no-governo-ate-fim-de-2018-duvida-21507256">Pezão diz a servidores que permanência no governo até fim de 2018 é dúvida - O Globo</a>
+            <br><a href="http://oglobo.globo.com" class="text-success">oglobo.globo.com.br</a>
+            <h6>RIO - O governador Luiz Fernando Pezão afirmou a servidores, nesta quinta-feira, que a única solução para o Rio é o acordo de ajuste fiscal e que não há previsão de quando vai pagar os salários atrasados, segundo os representantes de servidores recebidos em reunião no Palácio Guanabara. No encontro para discutir a situação dos trabalhadores, que teve também a presença do líder do governo na Alerj, Edson Albertassi, Pezão teria afirmado que, caso o estado não consiga sair da crise atual, sua per ...
+            </h6>
+          </li> 
+        </ul>
+        <nav aria-label="..."><ul class="pagination pagination-sm">
+          <li class="active"><a href="#">1 <span class="sr-only"></span></a></li>
+          <li> <a href="#">2 <span class="sr-only"></span></a></li>
+          <li ><a href="#">3 <span class="sr-only"></span></a></li>
+        </ul></nav>
+      </div>
+
+      <div class="col-md-5 coluna">
+        <div id="fontes">
+        <h4>Fontes</h4>
+        <div class="btn-group btn-group-xs" role="group" aria-label="...">
+        <button class="btn btn-default" type="button"> Google <span class="badge">13</span> </button> <button class="btn btn-default" type="button"> Bing <span class="badge">15</span> </button> <button class="btn btn-default" type="button"> G1 <span class="badge">4</span> </button> </div>
+        <h4>Termos buscados</h4>
+        <h5><span class="label label-warning">Pezão</span></h5>
+
+        <h4>Categorias</h4>
+        <h5><span class="label label-default">Empresa</span> <span class="label label-default">Governo</span></h5>
+
+        <h4>Palavras-chave</h4>
+        <h5><span class="label label-default">roubo</span> <span class="label label-default">desvio</span> <span class="label label-default">sonegação</span></h5>
+        <hr>
+        <button class="btn btn-primary btn-sm" type="button"> Relatório </button> 
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

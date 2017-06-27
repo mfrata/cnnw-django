@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
-def index(request):
+def login(request):
 	context = {}
-	return render(request, 'webclient/index.html', context)
+	return render(request, 'webclient/login.html', context)
 
 def search(request):
 	context = {}
@@ -11,3 +11,7 @@ def search(request):
 def config(request):
 	context = {}
 	return render(request, 'webclient/config.html', context)
+
+def dashboard(request):
+	context = {}
+	return render(request, 'webclient/dashboard.html', context)

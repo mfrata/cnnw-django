@@ -1,1 +1,65 @@
-config teste
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CNNW - Configurações</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/9542326f7c.js"></script>
+    <script src="{% static "script.js" %}"></script>
+    <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  </head>
+  <body> 
+    <div class="container-fluid">
+
+      <div class="col-md-1 coluna">
+        <div class="row">
+           <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
+        </div>
+        <div class="row">
+          <a href="../search/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Busca por empresas e pessoas">
+            <i class="fa fa-search fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+         <a href="../dashboard/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Visualização da busca">
+            <i class="fa fa-dashboard fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+          <a id="menu" class="btn btn-primary disabled">
+            <i class="fa fa-gear fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-11 coluna">
+        <div id="configcategoria">
+        <h4>Configurações de Palavras-chave</h4>
+        <select class="form-control catoption">
+          <option value="">Selecione uma categoria</option>
+          <option value="Terrorismo">Terrorismo</option>
+          <option value="Ambiental">Ambiental</option>
+          <option value="Politica">Politica</option>
+          <option value="Financeiro">Financeiro</option>
+        </select>
+        </div>
+
+        <div class="input-group-lg" id="tagconfig">
+          <input type="text" class="form-control" id="tagsinput" placeholder="Digite a palavra chave e aperte enter ..." onkeypress="return addTag(event)">
+        </div>
+
+        <h4>Palavras-chave</h4>
+        <h5 id="newsTags" ><span class="label label-default">roubo</span> <span class="label label-default">desvio</span> <span class="label label-default">sonegação</span> </h5>
+        <hr>
+        <a href="#" class="btn btn-primary btn-sm" type="button"> Salvar </a> 
+      </div>
+    </div>
+  </body>
+</html>
