@@ -1,15 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Company(models.Model):
 	name = models.CharField(max_length=30)
 
 class Person(models.Model):
     name = models.CharField(max_length=30)
-
-class User(models.Model):
-    name = models.CharField(max_length=30)
-    email = models.EmailField(max_length=70,blank=False)
-    password = models.CharField(max_length=100)
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
@@ -20,5 +16,5 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
     categories = models.ManyToManyField(Category)
