@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, render
 from django.template import RequestContext
 from django.urls import reverse
+from .models import Category
 
 def login_user(request):
 	logout(request)
@@ -32,7 +33,8 @@ def search(request):
 
 @login_required(login_url='/webclient/login/')
 def config(request):
-	context = {}
+	categories = get_list_or_404(Category)
+	context = {'categories': categories}
 	return render(request, 'webclient/config.html', context)
 
 @login_required(login_url='/webclient/login/')

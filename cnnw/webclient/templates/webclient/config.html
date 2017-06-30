@@ -10,7 +10,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/9542326f7c.js"></script>
-    <script src="{% static "script.js" %}"></script>
+    <script type="text/javascript">
+      function addTag(e) {
+        if (e.keyCode == 13) {
+          var inputElement = document.getElementById("tagsinput");
+          var element = document.querySelector('#newsTags');
+          br = '';
+          if((element.childElementCount+1) % 7 == 0)
+            br = '<br>';
+          newElement = '<span class="label label-default">'+inputElement.value+'</span> '+br;
+          element.insertAdjacentHTML('beforeend', newElement);
+          inputElement.value = '';
+          return false;
+        }
+      }
+    </script>
     <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -42,17 +56,18 @@
       <div class="col-md-11 coluna">
         <div id="configcategoria">
         <h4>Configurações de Palavras-chave</h4>
-        <select class="form-control catoption">
-          <option value="">Selecione uma categoria</option>
-          <option value="Terrorismo">Terrorismo</option>
-          <option value="Ambiental">Ambiental</option>
-          <option value="Politica">Politica</option>
-          <option value="Financeiro">Financeiro</option>
+
+         <select class="form-control catoption">
+          <option value="" >Selecione uma categoria</option>
+          {% for category in categories %}
+            <option value="{{ category.id }}" >{{ category.name }}</option>
+          {% endfor %}  
         </select>
         </div>
 
         <div class="input-group-lg" id="tagconfig">
-          <input type="text" class="form-control" id="tagsinput" placeholder="Digite a palavra chave e aperte enter ..." onkeypress="return addTag(event)">
+          <input type="text" class="form-control" id="tagsinput" placeholder="Digite a palavra chave e aperte enter ..." 
+          onkeypress="return addTag(event)">
         </div>
 
         <h4>Palavras-chave</h4>
