@@ -16,11 +16,16 @@
           var inputElement = document.getElementById("tagsinput");
           var element = document.querySelector('#newsTags');
           br = '';
-          if((element.childElementCount+1) % 7 == 0)
-            br = '<br>';
-          newElement = '<span class="label label-default">'+inputElement.value+'</span> '+br;
-          element.insertAdjacentHTML('beforeend', newElement);
-          inputElement.value = '';
+          var category=document.getElementById('configcategory').value;
+          if(category && inputElement.value.length){
+            if((element.childElementCount+1) % 7 == 0)
+              br = '<br>';
+            newElementSpan = '<span class="label label-default" name="newtag">'+inputElement.value+'</span> '+br;
+            newElementList = '<input type="hidden" name="'+element.childElementCount+'" value="'+inputElement.value+'">';
+            document.querySelector('#listTags').insertAdjacentHTML('beforeend', newElementList);
+            element.insertAdjacentHTML('beforeend', newElementSpan);
+            inputElement.value = '';
+          }
           return false;
         }
       }
@@ -54,26 +59,27 @@
       </div>
 
       <div class="col-md-11 coluna">
-        <div id="configcategoria">
-        <h4>Configurações de Palavras-chave</h4>
-
-         <select class="form-control catoption">
-          <option value="" >Selecione uma categoria</option>
-          {% for category in categories %}
-            <option value="{{ category.id }}" >{{ category.name }}</option>
-          {% endfor %}  
-        </select>
-        </div>
-
-        <div class="input-group-lg" id="tagconfig">
-          <input type="text" class="form-control" id="tagsinput" placeholder="Digite a palavra chave e aperte enter ..." 
-          onkeypress="return addTag(event)">
-        </div>
-
-        <h4>Palavras-chave</h4>
-        <h5 id="newsTags" ><span class="label label-default">roubo</span> <span class="label label-default">desvio</span> <span class="label label-default">sonegação</span> </h5>
-        <hr>
-        <a href="#" class="btn btn-primary btn-sm" type="button"> Salvar </a> 
+        <form class="form-config" name="form-config" action="{% url 'config' %}" method="post">
+          {% csrf_token %}
+          <div id="configcategoria">
+            <h4>Configurações de Palavras-chave</h4>
+              <select class="form-control catoption" name="configcategory" id="configcategory">
+                <option value="" >Selecione uma categoria</option>
+                {% for category in categories %}
+                  <option value="{{ category.id }}" >{{ category.name }}</option>
+                {% endfor %}  
+              </select>
+          </div>
+          <div class="input-group-lg" id="tagconfig">
+            <input type="text" class="form-control" id="tagsinput" placeholder="Digite a palavra chave e aperte enter ..." 
+            onkeypress="return addTag(event)">
+          </div>
+          <h4>Palavras-chave</h4>
+          <h5 id="newsTags"></h5>
+          <ul id="listTags" class="hide"></ul> 
+          <hr>
+          <button class="btn btn-primary btn-sm" type="submit">Salvar</button>
+        </form>
       </div>
     </div>
   </body>
