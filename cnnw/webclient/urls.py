@@ -1,5 +1,4 @@
-from django.conf.urls import url
-
+from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
@@ -8,5 +7,5 @@ urlpatterns = [
     url(r'^search/$', views.search, name='search'),
     url(r'^config/$', views.config, name='config'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
+	url(r'^api/v1/', include('webclient.api.urls', namespace='api')),
 ]
-
