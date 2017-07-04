@@ -78,14 +78,16 @@ WSGI_APPLICATION = 'cnnw.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cnnw_db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'd1i0saoavk2md1',
+        'USER': 'stzqlgousquevd',
+        'PASSWORD': '6e29d1b6882e0e1a511f1c62fb1deb246a945c4bad5a0e8093e11d909e050804',
+        'HOST': 'ec2-23-21-220-152.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
 
+# postgresql URI
+# postgres://stzqlgousquevd:6e29d1b6882e0e1a511f1c62fb1deb246a945c4bad5a0e8093e11d909e050804@ec2-23-21-220-152.compute-1.amazonaws.com:5432/d1i0saoavk2md1
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
