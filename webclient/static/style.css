@@ -1,5 +1,6 @@
 .col-md-1{
 	background: #296191;
+    text-align: center;
 }
 
 .col-md-5, .col-md-6{
@@ -11,9 +12,10 @@
     height: 700px;
 }
 
-#menu{
+#menu {
     height: 70px;
-    width: 100%;
+    width: 70%;
+    margin-bottom: 10px;
 }
 
 #palavraschave{
