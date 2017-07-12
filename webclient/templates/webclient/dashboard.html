@@ -21,7 +21,7 @@
   </head>
   <body> 
     <div class="container-fluid">
-      <div class="col-md-1 coluna">
+      <div class="col-md-1 menuCol coluna">
         <div class="row">
            <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
         </div>
@@ -72,22 +72,29 @@
         </ul>
       </div>
 
-      <div class="col-md-5 coluna">
+      <div class="col-md-3 coluna">
         <div id="fontes">
         <h4>Fontes</h4>
         <div class="btn-group btn-group-xs" role="group" aria-label="...">
         <button class="btn btn-default" type="button"> Google <span class="badge">13</span> </button> <button class="btn btn-default" type="button"> Bing <span class="badge">15</span> </button> <button class="btn btn-default" type="button"> G1 <span class="badge">4</span> </button> </div>
-        <h4>Termos buscados</h4>
+        <h4>Termo buscado</h4>
         <h5><span class="label label-warning">{{searchedWord}}</span></h5>
-
-        <h4>Categorias</h4>
-        <h5><span class="label label-default">{{searchedCategory}}</span> </h5>
-
+        {% if searchedCategory %}
+          <h4>Categorias</h4>
+          <h5><span class="label label-default">{{searchedCategory}}</span> </h5>
+        {% endif %}
+        {% if searchedTag %}
         <h4>Palavra-chave</h4>
         <h5><span class="label label-default">{{searchedTag}}</span> </h5>
+        {% endif %}
         <hr>
         <button class="btn btn-primary btn-sm" type="button"> Relatório </button> 
       </div>
+      </div>
+      <div class="col-md-2">
+        <div class="row col-centered">
+           <p>{{user}}</p> <a href="../logout/">( Logout )</a>
+        </div>
       </div>
     </div>
   </body>

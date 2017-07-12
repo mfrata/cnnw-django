@@ -40,7 +40,7 @@
   <body> 
     <div class="container-fluid">
 
-      <div class="col-md-1 coluna">
+      <div class="col-md-1 menuCol coluna">
         <div class="row">
            <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
         </div>
@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="col-md-11 coluna">
+      <div class="col-md-8 coluna">
         <form class="form-config" name="form-config" action="{% url 'config' %}" method="post">
           {% csrf_token %}
           <div id="configcategoria">
@@ -83,6 +83,11 @@
           <hr>
           <button class="btn btn-primary btn-sm" type="submit">Salvar</button>
         </form>
+      </div>
+      <div class="col-md-3">
+        <div class="row col-centered">
+           <p>{{user}}</p> <a href="../logout/">( Logout )</a>
+        </div>
       </div>
     </div>
   </body>

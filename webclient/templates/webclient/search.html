@@ -35,7 +35,7 @@
   </head>
   <body> 
     <div class="container-fluid">
-      <div class="col-md-1 coluna">
+      <div class="col-md-1 menuCol coluna">
         <div class="row">
            <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
         </div>
@@ -83,27 +83,31 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-5 coluna">
+      <div class="col-md-3 coluna">
         <div id="fontes">
-        <h4>Categorias e Palavras-chave</h3>
-
-        <div class="btn-group" role="group">
-          <select class="form-control catoption" id="category" name="category">
-            <option value="">Selecione uma categoria</option>
-            {% for category in categories %}
+          <h4>Categorias e Palavras-chave</h3>
+          <div class="btn-group" role="group">
+            <select class="form-control catoption" id="category" name="category">
+              <option value="">Selecione uma categoria</option>
+              {% for category in categories %}
               <option value="{{ category.id }}" >{{ category.name }}</option>
-            {% endfor %} 
-          </select>
+              {% endfor %} 
+            </select>
+          </div>
+            <div class="btn-group" role="group">
+              <select class="form-control catoption" id="keyword" name="keyword">
+                <option value="">Selecione uma palavra-chave</option>
+                {% for tag in tags %}
+                  <option value="{{ tag.id }}" >{{ tag.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </form>
         </div>
-        <div class="btn-group" role="group">
-           <select class="form-control catoption" id="keyword" name="keyword">
-            <option value="">Selecione uma palavra-chave</option>
-            {% for tag in tags %}
-              <option value="{{ tag.id }}" >{{ tag.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        </form>
+      </div>
+      <div class="col-md-2">
+        <div class="row col-centered">
+           <p>{{user}}</p> <a href="../logout/">( Logout )</a>
         </div>
       </div>
     </div>

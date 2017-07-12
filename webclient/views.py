@@ -29,10 +29,16 @@ def login_user(request):
 	return render(request, 'webclient/login.html')
 
 @login_required(login_url='/webclient/login/')
+def logout_user(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('login_user'))
+
+@login_required(login_url='/webclient/login/')
 def search(request):
+	user = get_object_or_404(User, pk=request.user.id)
 	categories = get_list_or_404(Category)
 	tags = get_list_or_404(Tag)
-	context = {'categories': categories, 'tags': tags}
+	context = {'categories': categories, 'tags': tags, 'user': user.username}
 	return render(request, 'webclient/search.html', context)
 
 @login_required(login_url='/webclient/login/')
