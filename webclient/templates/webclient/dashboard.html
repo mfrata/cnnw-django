@@ -10,7 +10,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/9542326f7c.js"></script>
-    <script src="{% static "script.js" %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
     <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -39,33 +43,33 @@
       </div>
       <div class="col-md-6 coluna">
         <div class="input-group input-group-lg" id="pesquisarentidade">
-          <input type="text" class="form-control" placeholder="Digite a empresa ou pessoa a ser buscada ...">
+          <input type="text" class="form-control" disabled placeholder="Digite a empresa ou pessoa a ser buscada ...">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Pesquisar!</button>
+            <button class="btn btn-default disabled" type="button">Pesquisar!</button>
           </span>
         </div>
 
-        <h3>Pezão 22/06/2017 17:11:42</h3>
+        <h3>{{searchedWord}} {{searchedTime}}</h3>
 
         <ul class="list-group">
-          <li class="list-group-item">
-            <a href="http://g1.globo.com/rio-de-janeiro/noticia/pezao-afirmou-em-reuniao-que-talvez-nao-chegue-ao-fim-do-mandato-diz-lider-de-movimento-de-servidores.ghtml">Pezão afirmou em reunião que não sabe se chega ao fim do mandato, diz líder de movimento de servidores - G1</a><br>
-            <a href="http://g1.globo.com.br" class="text-success">g1.globo.com.br</a>
-            <h6>O presidente do Movumento Unificado dos Servidores Públicos do Rio (Muspe), Ramon Carrera, afirmou, ao sair de reunião com Luiz Fernando Pezão na tarde desta quinta-feira (22), que o governador disse "repetidas vezes" durante o encontro que não sabe se chegará ao fim do mandato, em 2018. A afirmação acontece no dia em que o presidente da Alerj, Jorge Picciani (PMDB), disse que em entrevista à rádio CBN, na manhã desta quinta-feira (22), que a solução para o estado é uma intervenção do governo fe ... </h6>
-          </li>
+          {% for new in news %}
+            <li class="list-group-item">
+              <a href="{{url}}" target="_blank">{{new.title}} - {{new.domain}}</a><br>
+              <a href="http://{{new.domain}}" target="_blank" class="text-success">{{new.domain}}</a>
+              <h6>{{new.body}}</h6>
+              <h6 class="dateNews">Notícia de {{new.date}} e classificada com risco 
 
-          <li class="list-group-item">
-            <a href="https://oglobo.globo.com/rio/pezao-diz-servidores-que-permanencia-no-governo-ate-fim-de-2018-duvida-21507256">Pezão diz a servidores que permanência no governo até fim de 2018 é dúvida - O Globo</a>
-            <br><a href="http://oglobo.globo.com" class="text-success">oglobo.globo.com.br</a>
-            <h6>RIO - O governador Luiz Fernando Pezão afirmou a servidores, nesta quinta-feira, que a única solução para o Rio é o acordo de ajuste fiscal e que não há previsão de quando vai pagar os salários atrasados, segundo os representantes de servidores recebidos em reunião no Palácio Guanabara. No encontro para discutir a situação dos trabalhadores, que teve também a presença do líder do governo na Alerj, Edson Albertassi, Pezão teria afirmado que, caso o estado não consiga sair da crise atual, sua per ...
-            </h6>
-          </li> 
+                {% if new.risk == "Alto" %}
+                  <span class="label label-danger"> Alto </span> 
+                {% elif new.risk == "Medio" %}
+                  <span class="label label-warning"> Médio </span> 
+                {% else %}
+                  <span class="label label-success"> Baixo </span> 
+                {% endif %}
+              </h6>
+            </li>
+          {% endfor %}
         </ul>
-        <nav aria-label="..."><ul class="pagination pagination-sm">
-          <li class="active"><a href="#">1 <span class="sr-only"></span></a></li>
-          <li> <a href="#">2 <span class="sr-only"></span></a></li>
-          <li ><a href="#">3 <span class="sr-only"></span></a></li>
-        </ul></nav>
       </div>
 
       <div class="col-md-5 coluna">
@@ -74,13 +78,13 @@
         <div class="btn-group btn-group-xs" role="group" aria-label="...">
         <button class="btn btn-default" type="button"> Google <span class="badge">13</span> </button> <button class="btn btn-default" type="button"> Bing <span class="badge">15</span> </button> <button class="btn btn-default" type="button"> G1 <span class="badge">4</span> </button> </div>
         <h4>Termos buscados</h4>
-        <h5><span class="label label-warning">Pezão</span></h5>
+        <h5><span class="label label-warning">{{searchedWord}}</span></h5>
 
         <h4>Categorias</h4>
-        <h5><span class="label label-default">Empresa</span> <span class="label label-default">Governo</span></h5>
+        <h5><span class="label label-default">{{searchedCategory}}</span> </h5>
 
-        <h4>Palavras-chave</h4>
-        <h5><span class="label label-default">roubo</span> <span class="label label-default">desvio</span> <span class="label label-default">sonegação</span></h5>
+        <h4>Palavra-chave</h4>
+        <h5><span class="label label-default">{{searchedTag}}</span> </h5>
         <hr>
         <button class="btn btn-primary btn-sm" type="button"> Relatório </button> 
       </div>

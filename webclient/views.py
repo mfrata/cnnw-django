@@ -5,7 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.template import RequestContext
 from django.urls import reverse
+from .utils import get500Chars
 from .models import Category, Tag
+from .services import get_news
+import datetime
+import pytz
 
 def login_user(request):
 	logout(request)
@@ -26,7 +30,9 @@ def login_user(request):
 
 @login_required(login_url='/webclient/login/')
 def search(request):
-	context = {}
+	categories = get_list_or_404(Category)
+	tags = get_list_or_404(Tag)
+	context = {'categories': categories, 'tags': tags}
 	return render(request, 'webclient/search.html', context)
 
 @login_required(login_url='/webclient/login/')
@@ -49,5 +55,47 @@ def config(request):
 
 @login_required(login_url='/webclient/login/')
 def dashboard(request):
-	context = {}
-	return render(request, 'webclient/dashboard.html', context)
+	if 'search' in request.GET.keys():
+		searchedTime = datetime.datetime.now(pytz.timezone('America/Sao_Paulo')).strftime('%d-%m-%Y %H:%M:%S')
+
+		searchedCategoryID = request.GET['category']
+		searchedCategory = ''
+		if searchedCategoryID:
+			searchedCategory = get_object_or_404(Category, pk=searchedCategoryID).name
+
+		searchedTagID = request.GET['keyword']
+		searchedTag = ''
+		if searchedTagID:
+			searchedTag = get_object_or_404(Tag, pk=searchedTagID).name
+		searchedWord = request.GET['search']
+
+		news_list = get_news(searchedWord)
+		if news_list:
+			context = {
+				'searchedWord': searchedWord,
+				'searchedTime': searchedTime,
+				'searchedCategory': searchedCategory,
+				'searchedTag': searchedTag,
+				'news':news_list
+			}
+
+			for key in context['news']:
+				key['body'] = get500Chars(key['body'])
+				
+			return render(request, 'webclient/dashboard.html', context)
+	return HttpResponseRedirect(reverse('search'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
