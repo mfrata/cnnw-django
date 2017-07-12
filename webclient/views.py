@@ -57,26 +57,26 @@ def config(request):
 def dashboard(request):
 	if 'search' in request.GET.keys():
 		searchedTime = datetime.datetime.now(pytz.timezone('America/Sao_Paulo')).strftime('%d-%m-%Y %H:%M:%S')
+		searchedWord = request.GET['search']
 
 		searchedCategoryID = request.GET['category']
-		searchedCategory = ''
+		searchedCategory = None
 		if searchedCategoryID:
 			searchedCategory = get_object_or_404(Category, pk=searchedCategoryID).name
 
 		searchedTagID = request.GET['keyword']
-		searchedTag = ''
+		searchedTag = None
 		if searchedTagID:
 			searchedTag = get_object_or_404(Tag, pk=searchedTagID).name
-		searchedWord = request.GET['search']
 
-		news_list = get_news(searchedWord)
+		news_list = get_news(searchedWord, searchedCategory, searchedTag)
 		if news_list:
 			context = {
 				'searchedWord': searchedWord,
 				'searchedTime': searchedTime,
 				'searchedCategory': searchedCategory,
 				'searchedTag': searchedTag,
-				'news':news_list
+				'news': news_list
 			}
 
 			for key in context['news']:
@@ -84,18 +84,3 @@ def dashboard(request):
 				
 			return render(request, 'webclient/dashboard.html', context)
 	return HttpResponseRedirect(reverse('search'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

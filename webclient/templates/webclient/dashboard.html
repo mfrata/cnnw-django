@@ -57,7 +57,7 @@
               <a href="{{url}}" target="_blank">{{new.title}} - {{new.domain}}</a><br>
               <a href="http://{{new.domain}}" target="_blank" class="text-success">{{new.domain}}</a>
               <h6>{{new.body}}</h6>
-              <h6 class="dateNews">Notícia de {{new.date}} e classificada com risco 
+              <h6 class="dateNews">Notícia de {{new.published_date}} arquivada em  {{new.scrapped_date}} e classificada com risco 
 
                 {% if new.risk == "Alto" %}
                   <span class="label label-danger"> Alto </span> 
