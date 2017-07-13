@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CNNW - Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/9542326f7c.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+      Chart.defaults.global = {
+        // Boolean - Whether to animate the chart
+        animation: true,
+
+        // Number - Number of animation steps
+        animationSteps: 60,
+
+        // String - Animation easing effect
+        // Possible effects are:
+        // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
+        //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
+        //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
+        //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
+        //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
+        //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
+        //  easeOutElastic, easeInCubic]
+        animationEasing: "easeOutQuart",
+
+        // Boolean - If we should show the scale at all
+        showScale: true,
+
+        // Boolean - If we want to override with a hard coded scale
+        scaleOverride: false,
+
+        // ** Required if scaleOverride is true **
+        // Number - The number of steps in a hard coded scale
+        scaleSteps: null,
+        // Number - The value jump in the hard coded scale
+        scaleStepWidth: null,
+        // Number - The scale starting value
+        scaleStartValue: null,
+
+        // String - Colour of the scale line
+        scaleLineColor: "rgba(0,0,0,.1)",
+
+        // Number - Pixel width of the scale line
+        scaleLineWidth: 1,
+
+        // Boolean - Whether to show labels on the scale
+        scaleShowLabels: true,
+
+        // Interpolated JS string - can access value
+        scaleLabel: "<%=value%>",
+
+        // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+        scaleIntegersOnly: true,
+
+        // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+        scaleBeginAtZero: false,
+
+        // String - Scale label font declaration for the scale label
+        scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+        // Number - Scale label font size in pixels
+        scaleFontSize: 12,
+
+        // String - Scale label font weight style
+        scaleFontStyle: "normal",
+
+        // String - Scale label font colour
+        scaleFontColor: "#666",
+
+        // Boolean - whether or not the chart should be responsive and resize when the browser does.
+        responsive: false,
+
+        // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+        maintainAspectRatio: true,
+
+        // Boolean - Determines whether to draw tooltips on the canvas or not
+        showTooltips: true,
+
+        // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
+        customTooltips: false,
+
+        // Array - Array of string names to attach tooltip events
+        tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+
+        // String - Tooltip background colour
+        tooltipFillColor: "rgba(0,0,0,0.8)",
+
+        // String - Tooltip label font declaration for the scale label
+        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+        // Number - Tooltip label font size in pixels
+        tooltipFontSize: 14,
+
+        // String - Tooltip font weight style
+        tooltipFontStyle: "normal",
+
+        // String - Tooltip label font colour
+        tooltipFontColor: "#fff",
+
+        // String - Tooltip title font declaration for the scale label
+        tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+        // Number - Tooltip title font size in pixels
+        tooltipTitleFontSize: 14,
+
+        // String - Tooltip title font weight style
+        tooltipTitleFontStyle: "bold",
+
+        // String - Tooltip title font colour
+        tooltipTitleFontColor: "#fff",
+
+        // Number - pixel width of padding around tooltip text
+        tooltipYPadding: 6,
+
+        // Number - pixel width of padding around tooltip text
+        tooltipXPadding: 6,
+
+        // Number - Size of the caret on the tooltip
+        tooltipCaretSize: 8,
+
+        // Number - Pixel radius of the tooltip border
+        tooltipCornerRadius: 6,
+
+        // Number - Pixel offset from point x to tooltip edge
+        tooltipXOffset: 10,
+
+        // String - Template string for single tooltips
+        tooltipTemplate: "<%if (label){\%><%=label%>: <%}%><%= value %>",
+
+        // String - Template string for multiple tooltips
+        multiTooltipTemplate: "<%= value %>",
+
+        // Function - Will fire on animation progression.
+        onAnimationProgress: function(){},
+
+        // Function - Will fire on animation completion.
+        onAnimationComplete: function(){}
+      }
+
+      let alto = 0;
+      let medio = 0;
+      let baixo = 0;
+
+      {% for key, value in risks_list.items %}
+        {% if key == "Alto" %} 
+          alto = {{value}}
+        {% elif key == "Medio"%}
+          medio = {{value}}
+        {% else %} 
+          baixo = {{value}}
+        {% endif %}    
+      {% endfor %}
+
+      var data = [
+        {
+          value: alto,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: "Alto"
+        },
+        {
+          value: medio,
+          color: "#FDB45C",
+          highlight: "#FFC870",
+          label: "Médio"
+        },
+        {
+          value: baixo,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Baixo"
+        }
+      ]
+      $(function () {var option = {responsive: true,};
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myDoughnutChart = new Chart(ctx).Doughnut(data,option);
+      });
+    </script>
+    <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  </head>
+  <body> 
+    <div class="container-fluid">
+      <div class="col-md-1 menuCol coluna">
+        <div class="row">
+           <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
+        </div>
+        <div class="row">
+          <a href="../search/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Busca por empresas e pessoas">
+            <i class="fa fa-search fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+         <a id="menu" class="btn btn-primary disabled">
+            <i class="fa fa-dashboard fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+          <a href="../config/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Configure palavras-chave para busca">
+            <i class="fa fa-gear fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 coluna">
+        <div class="input-group input-group-lg" id="pesquisarentidade">
+          <input type="text" class="form-control" disabled placeholder="Digite a empresa ou pessoa a ser buscada ...">
+          <span class="input-group-btn">
+            <button class="btn btn-default disabled" type="button">Pesquisar!</button>
+          </span>
+        </div>
+
+        <h3>Busca por <strong>{{searchedWord}}</strong> 
+          {% if searchedCategory %}   
+            na categoria <strong>{{ searchedCategory }}</strong>   
+          {% endif %}
+          {% if searchedTag %}
+            com a palavra-chave <strong>{{ searchedTag }}</strong>
+          {% endif %}
+          em {{searchedTime}}</h3>
+
+        <ul class="list-group">
+          {% for new in news %}
+            <li class="list-group-item">
+              <a href="{{new.url}}" target="_blank">{{new.title}}</a><br>
+              <a href="http://{{new.domain}}" target="_blank" class="text-success">{{new.domain}}</a>
+              <h5>{{new.body}}</h5>
+
+              {% if new.entities %}
+                  <h6> Entidades no texto:  {{ new.entities|join:", "  }} </h6>
+              {% endif %}
+
+              {% if new.tags %}
+                  <h6>Palavras-chave no texto:  {{ new.tags|join:", "  }} </h6>
+              {% endif %}
+
+              <h6 class="dateNews">Notícia de {{new.published_date}} arquivada em  {{new.scrapped_date}} e classificada com risco 
+
+                {% if new.risk == "Alto" %}
+                  <span class="label label-danger"> Alto </span> 
+                {% elif new.risk == "Medio" %}
+                  <span class="label label-warning"> Médio </span> 
+                {% else %}
+                  <span class="label label-success"> Baixo </span> 
+                {% endif %}
+              </h6>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="col-md-3 coluna">
+
+        <div id="fontes">
+        <h4>{{news|length}} resultados em {{domains_list.items|length}} fontes de notícias</h4>
+        <hr>
+        <h4>Fontes</h4>
+        <div class="btn-group btn-group-xs" role="group" aria-label="...">
+          {% for key, value in domains_list.items %}
+            <button class="btn btn-default" disabled type="button">{{key}}   <span class="badge">{{value}}</span> </button><br>
+          {% endfor %}
+        </div>
+        
+        <h4>Notícias por risco</h4>
+
+        <canvas id="myChart"></canvas>
+
+        {% if categories_list %}
+          <h4>Categorias</h4>
+          {% for category in categories_list%}
+            <span class="label label-primary" name="newtag">{{category}}</span>
+          {% endfor %}
+        {% endif %}
+
+        {% if tags_list %}
+          <h4>Palavras-chave</h4>
+          {% for tag in tags_list%}
+            <span class="label label-default" name="newtag">{{tag}}</span>
+          {% endfor %}
+        {% endif %}
+
+        {% if entities_list %}
+          <h4>Entidades citadas</h4>
+          <h6>{{ entities_list|join:", " }}</h6>
+        {% endif %}
+
+      </div>
+      </div>
+      <div class="col-md-2">
+        <div class="row col-centered">
+           <p>{{user}}</p> <a href="../logout/">( Logout )</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

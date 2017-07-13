@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CNNW - Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/9542326f7c.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+
+      function activeButton(e){
+        var inputElement = document.getElementById("inputEntidade");
+        if(inputElement.value.length > 2){
+          document.getElementById("searchButton").disabled=false;
+          if (e.keyCode == 13)
+            return true;
+        } 
+        if(inputElement.value.length <= 2){
+          document.getElementById("searchButton").disabled=true;
+          if (e.keyCode == 13)
+            return false;
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="{% static "style.css" %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body> 
+    <div class="container-fluid">
+      <div class="col-md-1 menuCol coluna">
+        <div class="row">
+           <img src="{% static "logo.png" %}" alt="CNNW logo" id="logo"> 
+        </div>
+        <div class="row">
+          <a id="menu" class="btn btn-primary disabled">
+            <i class="fa fa-search fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+         <a href="../dashboard/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Visualização da busca">
+            <i class="fa fa-dashboard fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="row">
+          <a href="../config/" id="menu" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Configure palavras-chave para busca">
+            <i class="fa fa-gear fa-2x" id="iconmenu" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 coluna">
+        <form class="form-search" name="form-search" action="{% url 'dashboard' %}" method="GET">
+          {% csrf_token %}
+          <div class="input-group input-group-lg" id="pesquisarentidade">
+            <input type="text" name="search" onkeypress="return activeButton(event)" id="inputEntidade" class="form-control" placeholder="Digite a empresa ou pessoa a ser buscada ...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" id="searchButton" disabled type="submit">Pesquisar!</button>
+            </span>
+          </div>
+        
+        <br>
+        <ul class="list-group">
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+          <li class="list-group-item"><br>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 coluna">
+        <div id="fontes">
+          <h4>Categorias e Palavras-chave</h3>
+          <div class="btn-group" role="group">
+            <select class="form-control catoption" id="category" name="category">
+              <option value="">Selecione uma categoria</option>
+              {% for category in categories %}
+              <option value="{{ category.id }}" >{{ category.name }}</option>
+              {% endfor %} 
+            </select>
+          </div>
+            <div class="btn-group" role="group">
+              <select class="form-control catoption" id="keyword" name="keyword">
+                <option value="">Selecione uma palavra-chave</option>
+                {% for tag in tags %}
+                  <option value="{{ tag.id }}" >{{ tag.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="row col-centered">
+           <p>{{user}}</p> <a href="../logout/">( Logout )</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
