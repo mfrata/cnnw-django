@@ -1,5 +1,6 @@
-.col-md-1{
+.menuCol{
 	background: #296191;
+    text-align: center;
 }
 
 .col-md-5, .col-md-6{
@@ -11,9 +12,10 @@
     height: 700px;
 }
 
-#menu{
+#menu {
     height: 70px;
-    width: 100%;
+    width: 70%;
+    margin-bottom: 10px;
 }
 
 #palavraschave{
@@ -45,19 +47,25 @@
 }
 
 #configcategoria{
-	width: 30%;
+	width: 50%;
 	padding-top: 70px;
 }
 
 .catoption{
 	text-align: center;
+	width:250px;
 }
 
 #tagconfig{
-	width: 30%;
+	width: 50%;
 	margin-top: 5px;
 }
 
 .label{
 	font-size: 50%;
+}
+
+.col-centered{
+	padding-top: 15px;
+	text-align: center;
 }
