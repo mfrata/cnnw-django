@@ -49,14 +49,31 @@
           </span>
         </div>
 
-        <h3>{{searchedWord}} {{searchedTime}}</h3>
+        <h3>Busca por <strong>{{searchedWord}}</strong> 
+          {% if searchedCategory %}   
+            na categoria <strong>{{ searchedCategory }}</strong>   
+          {% endif %}
+          {% if searchedTag %}
+            com a palavra-chave <strong>{{ searchedTag }}</strong>
+          {% endif %}
+          em {{searchedTime}}</h3>
 
         <ul class="list-group">
           {% for new in news %}
             <li class="list-group-item">
               <a href="{{new.url}}" target="_blank">{{new.title}} - {{new.domain}}</a><br>
               <a href="http://{{new.domain}}" target="_blank" class="text-success">{{new.domain}}</a>
-              <h6>{{new.body}}</h6>
+              <h5>{{new.body}}</h5>
+
+              {% if new.entities %}
+                  <h6> Entidades no texto:  {{ new.entities|join:", "  }} </h6>
+              {% endif %}
+
+              {% if new.tags %}
+                  <h6>Palavras-chave no texto:  {{ new.tags|join:", "  }} </h6>
+              {% endif %}
+
+
               <h6 class="dateNews">Notícia de {{new.published_date}} arquivada em  {{new.scrapped_date}} e classificada com risco 
 
                 {% if new.risk == "Alto" %}
@@ -76,7 +93,10 @@
         <div id="fontes">
         <h4>Fontes</h4>
         <div class="btn-group btn-group-xs" role="group" aria-label="...">
-        <button class="btn btn-default" type="button"> Google <span class="badge">13</span> </button> <button class="btn btn-default" type="button"> Bing <span class="badge">15</span> </button> <button class="btn btn-default" type="button"> G1 <span class="badge">4</span> </button> </div>
+          {% for key, value in domains_list.items %}
+            <button class="btn btn-default" disabled type="button">{{key}}   <span class="badge">{{value}}</span> </button><br>
+          {% endfor %}
+        </div>
         <h4>Termo buscado</h4>
         <h5><span class="label label-warning">{{searchedWord}}</span></h5>
         {% if searchedCategory %}

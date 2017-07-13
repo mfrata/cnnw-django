@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.template import RequestContext
 from django.urls import reverse
-from .utils import get500Chars
+from .utils import get500Chars, countSources
 from .models import Category, Tag
 from .services import get_news
 import datetime
@@ -82,11 +82,12 @@ def dashboard(request):
 				'searchedTime': searchedTime,
 				'searchedCategory': searchedCategory,
 				'searchedTag': searchedTag,
-				'news': news_list
+				'news': news_list,
+				'domains_list': countSources(news_list)
 			}
 
 			for key in context['news']:
 				key['body'] = get500Chars(key['body'])
-				
+
 			return render(request, 'webclient/dashboard.html', context)
 	return HttpResponseRedirect(reverse('search'))
