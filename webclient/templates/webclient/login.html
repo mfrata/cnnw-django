@@ -31,7 +31,11 @@
           </div>
         {% endif %}
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-        <button class="btn btn-sx btn-warning btn-block" type="submit">Envie-me nova senha</button>
+      </form>
+
+      <form class="form-signin" name="resetForm" action="{% url 'password_reset' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-sx btn-warning btn-block buttonReset" type="submit">Esqueci minha senha</button>
       </form>
 
     </div> <!-- /container -->
