@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.template import RequestContext
 from django.urls import reverse
-from .utils import get500Chars, countSources
+from .utils import get500Chars, countSources, allEntities, allCategories, allTags, allRisks
 from .models import Category, Tag
 from .services import get_news
 import datetime
@@ -76,6 +76,7 @@ def dashboard(request):
 			searchedTag = get_object_or_404(Tag, pk=searchedTagID).name
 
 		news_list = get_news(searchedWord, searchedCategory, searchedTag)
+		
 		if news_list:
 			context = {
 				'searchedWord': searchedWord,
@@ -83,7 +84,11 @@ def dashboard(request):
 				'searchedCategory': searchedCategory,
 				'searchedTag': searchedTag,
 				'news': news_list,
-				'domains_list': countSources(news_list)
+				'domains_list': countSources(news_list),
+				'entities_list': allEntities(news_list),
+				'categories_list': allCategories(news_list),
+				'tags_list': allTags(news_list),
+				'risks_list': allRisks(news_list)
 			}
 
 			for key in context['news']:
